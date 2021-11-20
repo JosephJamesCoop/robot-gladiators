@@ -1,6 +1,3 @@
-console.log("dog");
-
-
 
    //repeat and execute as long as the enemy-robot is alive.
    var fightOrSkip = function () {
@@ -135,7 +132,7 @@ var startGame = function() {
             }
         
         } else {
-            window.alert("you have lost your robot in battle! Game Over!");
+            window.alert("You have lost your robot in battle! Game Over!");
             break;
         }  
     }
@@ -149,12 +146,20 @@ var randomNumber = function(min, max) {
 };
 // End Game funciton
 var endGame = function() {
-    // if player is still alive player wins!
     if (playerInfo.health > 0) {
-        window.alert("Great job you survived the game! You now have a score of " + playerInfo.money + ".");
+    window.alert("The game has now ended. Let's see how you did!");
+    //check for current high score
+    var highScore = localStorage.getItem("highScore");
+    if (highScore === null) {
+        highScore = 0;
+    }
+    if (playerInfo.money > highScore) {
+        localStorage.setItem("highScore", playerInfo.money);
+        localStorage.setItem("name", playerInfo.name);
+        alert(playerInfo.name + " now has the high score of " + playerInfo.money + "!");
     }
     else {
-        window.alert("You've lost your robot in battle.");
+        alert(playerInfo.name + " did not beat the high score of " + highScore + ". Maybe next time!");
     }
     var playAgainConfirm = window.confirm("Would you like to play again?")
     if (playAgainConfirm) {
@@ -164,6 +169,18 @@ var endGame = function() {
     else {
         window.alert("Thank you for playing Robot Gladiators! Come back soon!")
     }
+    
+}
+    else {
+    var playAgainConfirm = window.confirm("Would you like to play again?")
+    if (playAgainConfirm) {
+        //restart the game
+        startGame();
+    }
+    else {
+        window.alert("Thank you for playing Robot Gladiators! Come back soon!")
+    }
+}
 }
 // Shop Function
 var shop = function() {
